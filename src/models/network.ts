@@ -254,8 +254,7 @@ mongoSchema.loadClass(NetworkClass)
 
 const Network = mongoose.model<NetworkDocument, NetworkModel>('Network', networkSchema)
 
-export default networkSchema
-export { NetworkDocument, MachineDocument}
+export default Network
 /**
  * Overarching definition of a computer network: an organized
  * collection of machines in a graph.

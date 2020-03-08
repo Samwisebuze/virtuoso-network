@@ -11,7 +11,6 @@ const router = express.Router();
 //  Body: An Array of Machines
 router.get('', async (req, res, next) => {
     const { networkId } = req.params;
-    const machines = await NetworkDocument.getMachines();
     res.status(501).json();
 });
 
