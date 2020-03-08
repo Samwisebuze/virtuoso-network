@@ -8,11 +8,9 @@ const mongoSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    machineId: {
+    network: {
         type: String,
         required: true,
-        index: true,
-        unique: true
     },
     address: {
         type: String,
@@ -24,21 +22,13 @@ const mongoSchema = new mongoose.Schema({
     },
     openPorts: [Number],
     adjacentMachines: [String],
-    createdAt: {
-        type: Date,
-        required: true
-    },
-    updatedAt: Date
 })
 
 interface MachineDocument extends mongoose.Document {
-    machineId: string,
     address: string,
     imageName: string,
     openPorts: Array<number>,
     adjacentMachines: Array<string>,
-    createdAt: Date,
-    updatedAt: Date
 }
 
 interface MachineModel extends mongoose.Model<MachineDocument> {
@@ -49,11 +39,13 @@ interface MachineModel extends mongoose.Model<MachineDocument> {
     add({
         address,
         imageName,
-        openPorts
+        openPorts,
+        networkId
     }: {
         address: string
         imageName: string
         openPorts: Array<number>
+        networkId: string
     }): Promise<MachineDocument>
 
     edit({
@@ -143,7 +135,7 @@ mongoSchema.loadClass(MachineClass)
 
 const Machine = mongoose.model<MachineDocument, MachineModel>('Machine', mongoSchema)
 
-export default Machine
+export default mongoSchema
 export { MachineDocument }
 
 // /** 

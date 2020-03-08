@@ -1,5 +1,5 @@
 import * as express from 'express';
-
+import NetworkDocument from '../models/network'
 const router = express.Router();
 
 // GET - Machine Collection
@@ -10,6 +10,8 @@ const router = express.Router();
 //  Header: X-Pagination
 //  Body: An Array of Machines
 router.get('', async (req, res, next) => {
+    const { networkId } = req.params;
+    const machines = await NetworkDocument.getMachines();
     res.status(501).json();
 });
 

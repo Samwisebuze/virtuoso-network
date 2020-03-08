@@ -1,4 +1,3 @@
-import { Machine } from './machine'
-import { Network } from './network'
+import { NetworkDocument } from './network'
 
-export { Machine, Network }
+export { NetworkDocument }
