@@ -1,3 +1,7 @@
-import { NetworkDocument, MachineDocument } from './network'
+import NetworkModel  from './network'
+import MachineModel  from './machine'
+import { NetworkDocument } from './network'
+import { MachineDocument } from './machine'
 
-export { NetworkDocument, MachineDocument }
+
+export { NetworkModel, NetworkDocument, MachineDocument, MachineModel}
