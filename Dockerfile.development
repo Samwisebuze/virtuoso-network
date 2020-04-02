@@ -7,8 +7,10 @@ COPY package.json yarn.lock ./
 
 RUN yarn install --frozen-lockfile --production=false
 
+COPY ./ ./
+
 RUN yarn build
 
 EXPOSE 8080
 
-CMD ['node', 'build/index.js']
+CMD [ "node", "build/index.js" ]
