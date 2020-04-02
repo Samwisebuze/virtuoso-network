@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "The network management service for the Virtuoso Platform.",
   "main": "build/index.js",
+  "license": "MIT",
   "scripts": {
     "test": "none",
     "start-dev": "nodemon --config \"./util/nodemon.json\"/",
