@@ -1,9 +1,10 @@
-version: 2
+version: "2"
+
 services:
   app:
     build: .
     environment: 
-      - NODE_ENV=development
+      - "NODE_ENV=development"
     ports: 
       - "80:8080" # Local Running
       - "9339:9339" # Test Port
@@ -12,15 +13,15 @@ services:
     volumes: # Attach the source folder & node_modules 
              # so that any change to src+modules will be reflected on the host with nodemon.
       - .:/opt/app/.bin
-      - node_modules:/opt/app/node_modules
+      - ./node_modules:/opt/app/node_modules
     depends_on:
       - "mongo"
 
   mongo:
     image: mongo
     ports:
-      - 27102:27102
+      - "27102:27102"
     environment:
-      - DB_NAME: blah-database
-      - DB_USER: blah-user
-      - DN_PASS: blah-secure
+      - "DB_NAME=blah-database"
+      - "DB_USER=blah-user"
+      - "DB_PASS=blah-secure"
