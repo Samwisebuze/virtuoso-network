@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "description": "The network management service for the Virtuoso Platform.",
   "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "license": "MIT",
   "scripts": {
     "test": "none",
     "start-dev": "nodemon --config \"./util/nodemon.json\"/",
-    "build": "rm -rf ./build/ && tsc"
+    "build": "./node_modules/.bin/tsc"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
