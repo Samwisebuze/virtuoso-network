@@ -5,11 +5,11 @@ enum MACHINE_VER {
 }
 
 class MachineDTO {
-    public id: string 
+    public id!: string 
     public version: number = MACHINE_VER.v1
-    public type: string
-    public imageName: string
-    public openPorts: Array<number>
+    public type!: string
+    public imageName!: string
+    public openPorts!: Array<number>
 
     public static fromModel(machineDocument: MachineDocument): MachineDTO {
         const m = new MachineDTO()
