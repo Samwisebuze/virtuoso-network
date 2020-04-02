@@ -27,8 +27,6 @@ ENV NODE_ENV $NODE_ENV
 # copy only the built JavaScript files from step 1
 COPY --from=builder app/build/ app/build/
 
-# Set non-root user
-USER node
 
 # install only the production dependencies (thus reducing
 # file size)
@@ -36,5 +34,8 @@ COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile --production=true
 
 EXPOSE 8080
+
+# Set non-root user
+USER node
 
 CMD ['node', 'build/index.js']
