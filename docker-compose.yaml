@@ -2,7 +2,9 @@ version: "2"
 
 services:
   app:
-    build: .
+    build:
+      context: ./
+      dockerfile: Dockerfile.development
     environment: 
       - "NODE_ENV=development"
     ports: 
@@ -12,8 +14,8 @@ services:
       - "nodemon --listen=0.0.0.0:9339"
     volumes: # Attach the source folder & node_modules 
              # so that any change to src+modules will be reflected on the host with nodemon.
-      - .:/opt/app/.bin
-      - ./node_modules:/opt/app/node_modules
+      - .:/app/.bin
+      - ./node_modules:/app/node_modules
     depends_on:
       - "mongo"
 

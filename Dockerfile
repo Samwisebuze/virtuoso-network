@@ -1,30 +1,37 @@
-FROM node:10-alpine as builder
+# 1. Build TypeScript to JavaScript
+FROM node:12.16.1-alpine3.9 as builder
 
-# set our node environment, either development or production
-# defaults to production, compose overrides this to development on build and run
+WORKDIR /app
+
+# production=false is important b/c it grabs the devDependencies
+# like typescript that are only needed for step 1
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile --production=false
+
+COPY ./ ./
+
+RUN yarn build
+
+
+# 2. Prune all non-production dependencies, thereby reducing
+#    the size of the resulting image.
+#    Explanation: https://medium.com/@ankit.wal/the-why-and-how-of-multi-stage-docker-build-with-typescript-example-bcadbce2686c
+FROM node:12.16.1-alpine3.9 as final
+
+WORKDIR /app
+
+# set our node environment, either development or production (defaults to production)
 ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
 
-# install dependencies first, in a different location for easier app bind mounting for local development
-# due to default /opt permissions we have to create the dir with root and change perms
-RUN mkdir /opt/app && chown node:node /opt/app
-WORKDIR /opt/app
+# copy only the built JavaScript files from step 1
+COPY --from=builder app/build/ app/build/
 
-## Intall Dependencies
-RUN apk add --no-cache python make g++
-RUN apk add yarn
+# install only the production dependencies (thus reducing
+# file size)
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile --production=true
 
-USER node
+EXPOSE 8080
 
-COPY package.json package-lock.json* ./
-RUN yarn install --no-optional && yarn cache clean --force
-
-ENV PATH /opt/app/node_modules/.bin:$PATH
-
-FROM node:10-alpine as final
-
-COPY --from=builder /opt/app/node_modules .
-
-COPY ./build .
-
-ENTRYPOINT ["node", "index.js"]
+CMD ['node', 'build/index.js']
