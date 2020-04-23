@@ -1,10 +1,8 @@
 package com.virtuoso.network.model;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.util.List;
 
-public class NodeDocument {
+public class NodeModel {
     private String type;
     private String id;
 
@@ -16,7 +14,7 @@ public class NodeDocument {
         this.id = id;
     }
 
-    private List<NodeConnectionDocument> connections;
+    private List<NodeConnectionModel> connections;
 
     public String getType() {
         return type;
@@ -26,11 +24,11 @@ public class NodeDocument {
         this.type = type;
     }
 
-    public List<NodeConnectionDocument> getConnections() {
+    public List<NodeConnectionModel> getConnections() {
         return connections;
     }
 
-    public void setConnections(List<NodeConnectionDocument> connections) {
+    public void setConnections(List<NodeConnectionModel> connections) {
         this.connections = connections;
     }
 

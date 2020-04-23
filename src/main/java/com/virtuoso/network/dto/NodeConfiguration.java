@@ -6,6 +6,11 @@ public class NodeConfiguration {
     private String type;
     private List<NodeConnection> connections;
 
+    public NodeConfiguration(String type, List<NodeConnection> connections) {
+        this.type = type;
+        this.connections = connections;
+    }
+
     public String getType() {
         return type;
     }

@@ -1,6 +1,8 @@
 package com.virtuoso.network.service;
 
 import com.virtuoso.network.dto.Network;
+import com.virtuoso.network.dto.Node;
+import com.virtuoso.network.dto.NodeConfiguration;
 import com.virtuoso.network.model.NetworkDocument;
 import com.virtuoso.network.repository.NetworkRepository;
 import org.modelmapper.ModelMapper;
@@ -17,10 +19,12 @@ import java.util.stream.Collectors;
 @Service
 public class NetworkService {
     private final NetworkRepository networkRepository;
-    private final ModelMapper mapper = new ModelMapper();
+    private final ModelMapper mapper;
 
-    public NetworkService(NetworkRepository networkRepository) {
+    public NetworkService(NetworkRepository networkRepository, ModelMapper modelMapper)
+    {
         this.networkRepository = networkRepository;
+        this.mapper = modelMapper;
     }
 
     public Page<Network> listNetworks(Pageable pageable){
@@ -46,9 +50,13 @@ public class NetworkService {
         return result;
     }
 
-    public Network createNetwork(Network networkToCreate){
+    public Network createNetwork(List<NodeConfiguration> nodeConfigurations){
         // Repository handles the ID generation
-        if (networkToCreate.getId() != null) { networkToCreate.setId(null); }
+        List<Node> nodes = nodeConfigurations.stream()
+                .map(nc -> new Node(nc.getType(), nc.getConnections()))
+                .collect(Collectors.toList());
+
+        Network networkToCreate = new Network(nodes);
 
         NetworkDocument doc = mapper.map(networkToCreate, NetworkDocument.class);
         doc = networkRepository.save(doc);

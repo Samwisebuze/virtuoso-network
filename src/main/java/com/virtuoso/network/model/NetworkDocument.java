@@ -10,7 +10,7 @@ import java.util.List;
 public class NetworkDocument {
     @Id
     private ObjectId id;
-    private List<NodeDocument> nodes;
+    private List<NodeModel> nodes;
 
     public ObjectId getId() {
         return id;
@@ -20,11 +20,11 @@ public class NetworkDocument {
         this.id = id;
     }
 
-    public List<NodeDocument> getNodes() {
+    public List<NodeModel> getNodes() {
         return nodes;
     }
 
-    public void setNodes(List<NodeDocument> nodes) {
+    public void setNodes(List<NodeModel> nodes) {
         this.nodes = nodes;
     }
 

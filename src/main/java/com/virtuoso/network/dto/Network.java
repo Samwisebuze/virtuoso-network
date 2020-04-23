@@ -6,6 +6,10 @@ public class Network {
     private String id;
     private List<Node> machines;
 
+    public Network(List<Node> machines) {
+        this.machines = machines;
+    }
+
     public String getId() {
         return id;
     }

@@ -1,6 +1,6 @@
 package com.virtuoso.network.model;
 
-public class NodeConnectionDocument {
+public class NodeConnectionModel {
     private String type;
     private String id;
 
