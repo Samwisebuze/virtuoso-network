@@ -2,3 +2,8 @@ build/
 node_modules/
 doc/
 docker-compose.yaml
+.idea/
+.mvn/
+.settings/
+HELP.md
+mvnw*

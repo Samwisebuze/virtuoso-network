@@ -1,0 +1,15 @@
+FROM virtuoso/maven-builder as builder
+
+COPY . .
+
+RUN mvn clean install
+RUN mvn -DskipTests package
+
+FROM openjdk:8-jdk-alpine as dev
+
+COPY --from=builder target/virtuoso-network.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom", "-Dblabla", "-jar","app.jar"]
+
